@@ -3,10 +3,17 @@ python:
   - "3.5"
   - "3.6"
 
+efore_install:
+  - mkdir -p $HOME/bin
+  - curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux.tgz | tar -zxvf- -C $HOME/bin
+  - testspace config url http://mark.stridespace.com
+
 install: pip install tox-travis coveralls
 
-script: tox
+script: 
+   - tox
+   - testspace file.txt
 
-after_success:
-  - tox -e coverage-report
-  - coveralls
+#after_success:
+#  - tox -e coverage-report
+#  - coveralls
